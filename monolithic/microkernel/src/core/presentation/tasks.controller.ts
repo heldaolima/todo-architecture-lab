@@ -9,6 +9,7 @@ import {
   NotFoundException,
   Patch,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { CreateTaskDTO } from './dtos/create-task-dto';
 import { CreateTaskUseCase } from '../business/use-cases/create-task-use-case';
@@ -32,10 +33,7 @@ export class TasksController {
 
   @Post()
   async create(@Body() createTaskDTO: CreateTaskDTO) {
-    const [task, error] = await this.createTaskUC.execute(
-      createTaskDTO.title,
-      createTaskDTO.description,
-    );
+    const [task, error] = await this.createTaskUC.execute(createTaskDTO);
     if (error) {
       return { message: error };
     }
@@ -50,8 +48,8 @@ export class TasksController {
   }
 
   @Get(':id')
-  async getById(@Param('id', ParseIntPipe) id: number) {
-    const task = await this.getTaskByIdUC.execute(id);
+  async getById(@Param('id', ParseIntPipe) id: number, @Query('password') password?: string) {
+    const task = await this.getTaskByIdUC.execute(id, password);
     if (!task) {
       throw new NotFoundException('Task not found');
     }

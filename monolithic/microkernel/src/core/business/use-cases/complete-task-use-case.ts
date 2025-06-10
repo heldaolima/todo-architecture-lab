@@ -1,7 +1,7 @@
 import { TaskRepository } from '../../persistence/task-repository';
 import { Injectable, Inject } from '@nestjs/common';
 import { PluginRegistry } from 'src/core/registry/plugin-registry';
-import { PluginsTypes } from 'src/core/registry/plugins-types';
+import { PluginsTypes } from 'src/plugins/plugins-types';
 import { TaskNotificationPlugin } from 'src/plugins/notifications/notification.interface';
 
 @Injectable()
@@ -20,10 +20,10 @@ export class CompleteTaskUseCase {
       await this.repo.save(task);
 
       const notficationPlugins =
-        this.registry.getPlugins<TaskNotificationPlugin>(
+        this.registry.getPlugin<TaskNotificationPlugin>(
           PluginsTypes.Notifications,
         );
-      notficationPlugins.forEach((plugin) => plugin.onTaskCompleted(task));
+      notficationPlugins.onTaskCompleted(task);
     }
 
     return task;
