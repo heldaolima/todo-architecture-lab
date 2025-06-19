@@ -3,8 +3,7 @@ import { UserCreatedEventListener } from './user-created.listener';
 import { DatabaseModule } from '../database/database.module';
 
 @Module({
-  providers: [UserCreatedEventListener],
-  exports: [UserCreatedEventListener],
+  controllers: [UserCreatedEventListener],
   imports: [DatabaseModule],
 })
 export class EventListenersModule {}

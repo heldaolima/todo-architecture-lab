@@ -4,7 +4,7 @@ import { CreateUserDTO } from 'src/users-service/presentation/dtos/create-user-d
 import validator from 'validator';
 import { UserRepository } from 'src/users-service/persistence/user-repository';
 import { UserCreatedEvent } from 'src/events/user-created';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventBusService } from 'src/shared/events/event-bus.service';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -13,7 +13,7 @@ export class CreateUserUseCase {
     private readonly hashService: HashPasswordService,
     @Inject('USER_REPOSITORY')
     private readonly repo: UserRepository,
-    private eventEmitter: EventEmitter2,
+    private eventBus: EventBusService,
   ) {}
 
   public async execute(dto: CreateUserDTO) {
@@ -41,8 +41,10 @@ export class CreateUserUseCase {
     password = await this.hashService.hash(password);
 
     const user = await this.repo.save(email, password);
+
     const event = new UserCreatedEvent(user.id, user.email);
-    this.eventEmitter.emit('user.created', event);
+    await this.eventBus.publish('user.created', event);
+
+    return user;
   }
 }
-

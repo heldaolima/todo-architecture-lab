@@ -1,10 +1,9 @@
 version: '3.8'
 services:
-  rabbitmq:
+  rabbit-mq:
     image: rabbitmq:3.13-management
+    hostname: rabbit
+    container_name: rabbit-test
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABITMQ_DEFAULT_PASS=guest

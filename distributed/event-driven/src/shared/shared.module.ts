@@ -1,7 +1,11 @@
-import { Module } from "@nestjs/common";
-import { PrismaModule } from "./prisma/prisma.module";
+import { Module } from '@nestjs/common';
+import { PrismaModule } from './prisma/prisma.module';
+import { EventBusService } from './events/event-bus.service';
 
 @Module({
-    imports: [PrismaModule]
+  providers: [EventBusService],
+  exports: [EventBusService],
+  imports: [PrismaModule],
 })
 export class SharedModule {}
+

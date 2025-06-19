@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { UserCreatedEventListener } from './user-created.listener';
 
 @Module({
-  providers: [UserCreatedEventListener],
-  exports: [UserCreatedEventListener],
+  controllers: [UserCreatedEventListener],
 })
 export class EventListenersModule {}
