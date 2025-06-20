@@ -13,7 +13,8 @@ export class CreateTaskUseCase {
   ) {}
 
   async execute(dto: CreateTaskDTO, userId: number) {
-    let { title, description } = dto;
+    const { title } = dto;
+    let { description } = dto;
 
     if (!title) {
       return [null, 'Task title should be informed.'];

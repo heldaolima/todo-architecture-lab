@@ -1,8 +1,8 @@
 export class TaskCompleted {
   constructor(
-    public taskId: number,
-    public title: string,
-    public userId: number,
-    public completedAt: Date,
+    public readonly taskId: number,
+    public readonly title: string,
+    public readonly userId: number,
+    public readonly completedAt: Date,
   ) {}
 }

@@ -1,6 +1,6 @@
 export class LoginEvent {
   constructor(
-    public userEmail: string,
-    public loginAt: Date,
+    public readonly userEmail: string,
+    public readonly loginAt: Date,
   ) {}
 }
