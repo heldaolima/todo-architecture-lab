@@ -8,4 +8,3 @@ import { EventBusService } from './events/event-bus.service';
   imports: [PrismaModule],
 })
 export class SharedModule {}
-

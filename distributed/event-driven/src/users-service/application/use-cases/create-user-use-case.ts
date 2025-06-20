@@ -5,6 +5,7 @@ import validator from 'validator';
 import { UserRepository } from 'src/users-service/persistence/user-repository';
 import { UserCreatedEvent } from 'src/events/user-created';
 import { EventBusService } from 'src/shared/events/event-bus.service';
+import { EventsTypes } from 'src/events/events-types';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -43,7 +44,7 @@ export class CreateUserUseCase {
     const user = await this.repo.save(email, password);
 
     const event = new UserCreatedEvent(user.id, user.email);
-    await this.eventBus.publish('user.created', event);
+    await this.eventBus.publish(EventsTypes.UserCreated, event);
 
     return user;
   }

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ApplicationModule } from './application/application.module';
-import { EventListenersModule } from 'src/tasks-service/listeners/listeners.module';
+import { EventListenersModule } from './listeners/listeners.module';
 
 @Module({
   imports: [ApplicationModule, EventListenersModule],

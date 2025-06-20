@@ -3,11 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ApiGatewayModule } from './api-gateway/api-gateway.module';
 
 @Module({
-  imports: [
-    // TasksModule,
-    // UsersServiceModule,
-    ConfigModule.forRoot({ isGlobal: true }),
-    ApiGatewayModule,
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ApiGatewayModule],
 })
 export class AppModule {}

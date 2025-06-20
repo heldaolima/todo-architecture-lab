@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   ClientProxy,
   ClientProxyFactory,
@@ -7,7 +7,6 @@ import {
 
 @Injectable()
 export class EventBusService {
-  private readonly logger = new Logger(EventBusService.name);
   private client: ClientProxy;
 
   constructor() {
@@ -21,14 +20,8 @@ export class EventBusService {
     });
   }
 
-  async publish(pattern: string, data: any) {
-    try {
-      await this.client.emit(pattern, data).toPromise();
-      this.logger.log(`Event published ${pattern}`);
-    } catch (error) {
-      this.logger.error(`Failed to publish event ${pattern}:`, error);
-      throw error;
-    }
+  async publish<T>(pattern: string, data: T) {
+    await this.client.emit(pattern, data).toPromise();
   }
 
   async onModuleDestroy() {

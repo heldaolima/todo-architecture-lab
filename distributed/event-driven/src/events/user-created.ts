@@ -1,3 +1,6 @@
 export class UserCreatedEvent {
-  constructor(public readonly id: number, public readonly email: string) { }
+  constructor(
+    public readonly id: number,
+    public readonly email: string,
+  ) {}
 }

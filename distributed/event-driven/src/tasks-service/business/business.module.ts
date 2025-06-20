@@ -7,6 +7,7 @@ import { GetTaskByIdUseCase } from './use-cases/get-task-by-id-use-case';
 import { UpdateTaskUseCase } from './use-cases/update-task-use-case';
 import { DatabaseModule } from '../database/database.module';
 import { ClientsModule } from '@nestjs/microservices';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
   providers: [
@@ -27,6 +28,7 @@ import { ClientsModule } from '@nestjs/microservices';
   ],
   imports: [
     DatabaseModule,
+    SharedModule,
     ClientsModule.register([
       {
         name: 'RABBITMQ_SERVICE',
@@ -35,4 +37,3 @@ import { ClientsModule } from '@nestjs/microservices';
   ],
 })
 export class BusinessModule {}
-
